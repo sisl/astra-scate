@@ -1,0 +1,11 @@
+name: Publish Document Update
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - docs/**
+      - mkdocs.yaml
+jobs:
+  update-docs:
+    uses: ./.github/workflows/update_docs.yml

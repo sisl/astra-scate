@@ -2,32 +2,13 @@ name: Nightly Tests and Coverage
 
 on:
   schedule:
-    # This schedule will run the workflow every day at midnight UTC
-    - cron: '0 0 * * *'
+    # This schedule will run the workflow every day at 9 am UTC (2 am Pacific Time)
+    - cron: '0 9 * * *'
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.12", "3.13"]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install the latest version of uv and set the python version
-        uses: astral-sh/setup-uv@v6
-        with:
-          python-version: ${{ matrix.python-version }}
+  test-package:
+    uses: ./.github/workflows/run_unit_tests.yml
 
-      - name: Install dependencies
-        run: uv sync --all-extras --frozen
-
-      - name: Test with python ${{ matrix.python-version }}
-        run: uv run --frozen coverage run -m pytest
-
-      - name: Generate coverage report
-        run: uv run --frozen coverage report
-
-      # - name: Upload coverage to Coveralls
-      #   env:
-      #     COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}  # Add your Coveralls token to repository secrets
-      #   run: uv run --frozen coveralls
+  coverage-report:
+    uses: ./.github/workflows/report_coverage.yml
+    needs: [ test-package ]

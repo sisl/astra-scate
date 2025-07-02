@@ -6,6 +6,9 @@ on:
     types: [published]
 
 jobs:
+  unit-tests:
+    uses: ./.github/workflows/run_unit_tests.yml
+
   build_wheel:
     name: Build wheel
     runs-on: ubuntu-latest
@@ -46,8 +49,16 @@ jobs:
           name: astra-sdist
           path: dist/*.tar.gz
 
+  report-coverage:
+    uses: ./.github/workflows/report_coverage.yml
+    needs: [ unit-tests, build_wheel, build_sdist ]
+
+  update-docs:
+    uses: ./.github/workflows/update_docs.yml
+    needs: [ unit-tests, build_wheel, build_sdist ]
+
   upload_pypi:
-    needs: [build_sdist, build_wheel]
+    needs: [ build_sdist, build_wheel ]
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
