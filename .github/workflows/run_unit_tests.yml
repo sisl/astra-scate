@@ -25,8 +25,5 @@ jobs:
       - name: Generate coverage report
         run: uv run --frozen coverage report
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          allow-empty: true
-          fail-on-error: true
+      - name: Report Coverage
+        run: uv run --frozen coveralls
