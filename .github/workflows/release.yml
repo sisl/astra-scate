@@ -76,6 +76,10 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: dist
+          merge-multiple: true
+
+      - name: List files in dist
+        run: ls -lR dist
 
       - uses: pypa/gh-action-pypi-publish@release/v1
         # Uncomment below for testing
