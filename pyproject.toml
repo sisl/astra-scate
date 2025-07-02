@@ -1,5 +1,5 @@
 [project]
-name = "astra"
+name = "astra-rl"
 version = "0.0.1"
 description = "Tools for training, evaluating, and improving language models."
 license-files = ["LICENSE"]
@@ -17,10 +17,10 @@ dependencies = [
 ]
 
 [project.scripts]
-astra = "astra.cli.main:main"
+astral = "astral.cli.main:main"
 
 [tool.setuptools]
-py-modules = ['astra']
+py-modules = ['astral']
 
 [tool.setuptools.packages.find]
 where = ["src"]

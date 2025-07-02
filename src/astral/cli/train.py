@@ -5,6 +5,6 @@ app = typer.Typer()
 @app.command(help="Train a new evaluator model.")
 def train():
     """
-    Train a model using the Astra Toolbox.
+    Train a model using the Astral toolbox.
     """
     typer.echo("Training model...")

@@ -5,33 +5,39 @@
     <em>ASTRA - Adaptive Stress Testing for Robust AI</em>
 </p>
 <p align="center">
-<a href="https://github.com/sisl/astra-toolbox/actions/workflows/ci.yml" target="_blank">
-    <img src="https://github.com/sisl/astra-toolbox/actions/workflows/ci.yml/badge.svg" alt="Test">
+<a href="https://github.com/sisl/astra-rl/actions/workflows/ci.yml" target="_blank">
+    <img src="https://github.com/sisl/astra-rl/actions/workflows/ci.yml/badge.svg" alt="Test">
 </a>
-<a href='https://coveralls.io/github/sisl/astra-toolbox?branch=main'><img src='https://coveralls.io/repos/github/sisl/astra-toolbox/badge.svg?branch=main' alt='Coverage Status' /></a>
-<a href="https://sisl.github.io/astra-toolbox/index.html" target="_blank">
+<a href='https://coveralls.io/github/sisl/astra-rl?branch=main'><img src='https://coveralls.io/repos/github/sisl/astra-rl/badge.svg?branch=main' alt='Coverage Status' /></a>
+<a href="https://sisl.github.io/astra-rl/index.html" target="_blank">
     <img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Docs">
 </a>
-<a href="https://github.com/sisl/astra-toolbox/blob/main/LICENSE" target="_blank">
+<a href="https://github.com/sisl/astra-rl/blob/main/LICENSE" target="_blank">
     <img src="https://img.shields.io/badge/License-MIT-green.svg", alt="License">
 </a>
 </p>
 
 ----
 
-# ASTRA Toolbox
+# ASTRA-RL Toolbox
 
-A Python library for training and evaluating language models and generative AI systems that
+ASTRA-RL ("ASTRAL") Python toolbox for training and evaluating language models and generative AI systems that
 use textual inputs. It provides a set of tools for training, evaluating, and analyzing
 language models, with a focus on applying reinforcement learning based refinement techniques
 to improve evaluator model performance.
 
 ## Installation
 
-To install the ASTRA Toolbox, you can use pip. The package is available on PyPI, so you can install it directly from there.
+To install the ASTRA toolbox, you can use pip. The package is available on PyPI, so you can install it directly from there.
 
 ```bash
-pip install astra
+pip install astra-rl
+```
+
+You can then import the library in your Python code:
+
+```python
+import astral
 ```
 
 ## Development
@@ -45,7 +51,7 @@ To start, we _STRONGLY_ recommend using [uv](https://docs.astral.sh/uv/) to mana
 1. Clone the repository:
 
    ```bash
-   git clone git@github.com:sisl/astra-toolbox.git
+   git clone git@github.com:sisl/astra-rl.git
    cd astra
    ```
 
