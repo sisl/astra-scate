@@ -28,20 +28,43 @@ To start, we _STRONGLY_ recommend using [uv](https://docs.astral.sh/uv/) to mana
    cd astra
    ```
 
-2. Create a virtual environment:
+1. Sync package dependencies:
 
    ```bash
-   uv venv -p 3.12 # Minimum Python version is 3.12
+   uv sync --dev
    ```
 
-3. Activate the virtual environment:
+   This will create a `.venv` directory in the project root with all the necessary dependencies installed.
 
-   ```bash
-   source .venv/bin/activate
-   ```
 
-4. Install the package with development dependencies:
+### Running Tests
 
-   ```bash
-   pip install -e ".[dev]"
-   ```
+Assuming you've set up your environment using `uv`, you can run the tests using the following command:
+
+```bash
+pytest
+```
+
+or 
+
+```bash
+uv run pytest
+```
+
+To generate local coverage reports, you can use:
+
+```bash
+uv run coverage run -m pytest
+uv run coverage report # Generate CLI report
+uv run coverage html   # Generate HTML report
+```
+
+### Generating Documentation
+
+To generate the documentation, you can use the following command:
+
+```bash
+uv run mkdocs serve
+```
+
+This will build the documentation and start a local server. You can then view the documentation in your web browser.

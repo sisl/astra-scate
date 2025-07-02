@@ -1,0 +1,60 @@
+site_name: ASTRA Toolbox Documentation
+site_author: Duncan Eddy
+site_description: Adaptive Stress Testing for Robust AI — a toolbox for testing and improving the robustness of AI systems.
+site_url: https://github.com/sisl/astra-toolbox
+repo_url: https://github.com/sisl/astra-toolbox
+docs_dir: docs
+use_directory_urls: false
+
+plugins:
+  - search
+  - mkdocstrings
+  - section-index
+  - git-revision-date-localized:
+      enable_creation_date: true
+      fallback_to_build_date: true
+      type: iso_date
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+extra_css:
+    - stylesheets/extra.css
+
+theme:
+  name: material
+  # logo: assets/icon.png
+  # favicon: assets/favicon.png
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - python
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: black
+      toggle:
+          icon: material/weather-night
+          name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: black
+      toggle:
+          icon: material/weather-sunny
+          name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - toc.follow
+
+nav:
+  - ASTRA: index.md
