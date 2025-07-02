@@ -6,10 +6,6 @@ jobs:
   test-package:
     uses: ./.github/workflows/run_unit_tests.yml
 
-  coverage-report:
-    uses: ./.github/workflows/report_coverage.yml
-    needs: [ test-package ]
-
   update-docs:
     uses: ./.github/workflows/update_docs.yml
     needs: [ test-package ]

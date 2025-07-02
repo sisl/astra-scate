@@ -49,10 +49,6 @@ jobs:
           name: astra-sdist
           path: dist/*.tar.gz
 
-  report-coverage:
-    uses: ./.github/workflows/report_coverage.yml
-    needs: [ unit-tests, build_wheel, build_sdist ]
-
   update-docs:
     uses: ./.github/workflows/update_docs.yml
     needs: [ unit-tests, build_wheel, build_sdist ]
