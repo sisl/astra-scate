@@ -45,4 +45,23 @@ dev = [
     "mkdocstrings-python>=1.16.12",
     "pytest>=8.4.1",
     "pytest-cov>=6.2.1",
+    "ruff>=0.12.1",
+    "pre-commit>=4.2.0",
+    "mypy>=1.16.1",
 ]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+target-version = "py312"
+
+[tool.ruff.format]
+indent-style = "space"
+docstring-code-format = true
+docstring-code-line-length = 20
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+exclude = ["tests"]
