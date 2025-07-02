@@ -1,0 +1,48 @@
+[project]
+name = "astra"
+version = "0.0.1"
+description = "Tools for training, evaluating, and improving language models."
+license-files = ["LICENSE"]
+authors = [
+    { name = "Duncan Eddy", email = "deddy@stanford.edu" },
+    { name = "Max Lamparth", email = "lamparth@stanford.edu" },
+    { name = "Kiana Jafari", email = "kjafari@stanford.edu" },
+    { name = "Houjun Liu", email = "houjun@stanford.edu" },
+    { name = "Allie Griffith", email = "allie11@stanford.edu" },
+    { name = "Marc Schlichting", email = "mschl@stanford.edu" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "typer>=0.16.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+]
+
+[project.scripts]
+astra = "astra.cli.main:main"
+
+[tool.setuptools]
+py-modules = ['astra']
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["*"]
+
+[tool.cibuildwheel]
+before-all = "uname -a"
+build-frontend = "build[uv]"
+
+[tool.uv]
+package = true
+
+[dependency-groups]
+dev = [
+    "coverage>=7.9.1",
+    "coveralls>=4.0.1",
+]

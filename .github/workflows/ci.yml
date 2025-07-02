@@ -1,0 +1,31 @@
+name: Unit
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the latest version of uv and set the python version
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: uv sync --all-extras --frozen
+
+      - name: Test with python ${{ matrix.python-version }}
+        run: uv run --frozen coverage run -m pytest
+
+      - name: Generate coverage report
+        run: uv run --frozen coverage report
+
+      # - name: Upload coverage to Coveralls
+      #   env:
+      #     COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}  # Add your Coveralls token to repository secrets
+      #   run: uv run --frozen coveralls
