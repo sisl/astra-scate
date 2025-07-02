@@ -38,8 +38,7 @@ You can then import the library in your Python code:
 
 ```python
 import astra_rl
-
-# Or 
+# or
 import astra_rl as astral
 ```
 
