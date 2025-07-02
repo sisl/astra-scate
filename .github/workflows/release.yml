@@ -38,8 +38,20 @@ jobs:
   build_sdist:
     name: Build source distribution
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Only need to build for one python version
+        # because the wheel is compatible with all 3.12+ versions currently
+        python-version: ["3.12"]
     steps:
       - uses: actions/checkout@v4
+      - name: Install the latest version of uv and set the python version
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: uv sync --all-extras --frozen
 
       - name: Build wheel
         run: uv build --sdist
