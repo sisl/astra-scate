@@ -1,3 +1,24 @@
+<!-- <p align="center">
+  <a href="https://github.com/duncaneddy/brahe/"><img src="https://raw.githubusercontent.com/duncaneddy/brahe/main/docs/pages/assets/logo-gold.png" alt="Brahe"></a>
+</p> -->
+<p align="center">
+    <em>ASTRA - Adaptive Stress Testing for Robust AI</em>
+</p>
+<p align="center">
+<a href="https://github.com/sisl/astra-toolbox/actions/workflows/ci.yml" target="_blank">
+    <img src="https://github.com/sisl/astra-toolbox/actions/workflows/ci.yml/badge.svg" alt="Test">
+</a>
+<a href='https://coveralls.io/github/sisl/astra-toolbox?branch=main'><img src='https://coveralls.io/repos/github/sisl/astra-toolbox/badge.svg?branch=main' alt='Coverage Status' /></a>
+<a href="https://sisl.github.io/astra-toolbox/index.html" target="_blank">
+    <img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Docs">
+</a>
+<a href="https://github.com/sisl/astra-toolbox/blob/main/LICENSE" target="_blank">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg", alt="License">
+</a>
+</p>
+
+----
+
 # ASTRA Toolbox
 
 A Python library for training and evaluating language models and generative AI systems that
