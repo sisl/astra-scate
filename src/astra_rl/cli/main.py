@@ -12,7 +12,7 @@ app.add_typer(evaluate_cmd)
 
 
 # Entry point function needed by the package installation
-def main():
+def main() -> None:
     """
     ASTRA-RL CLI - A command line interface for the ASTRA-RL toolbox.
     """

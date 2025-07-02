@@ -7,4 +7,14 @@ repos:
         args: [ --fix ]
       - id: ruff-format
         types_or: [ python, pyi ]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.16.1
+    hooks:
+      -  id: mypy
+         args: [
+           "--python-version=3.12",
+           "--strict",
+           "--ignore-missing-imports"
+         ]
+         exclude: tests/
 

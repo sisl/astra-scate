@@ -57,15 +57,22 @@ To start, we _STRONGLY_ recommend using [uv](https://docs.astral.sh/uv/) to mana
    cd astra-rl
    ```
 
-1. Sync package dependencies:
+2. Sync package dependencies:
 
    ```bash
    uv sync --dev
    ```
 
    This will create a `.venv` directory in the project root with all the necessary dependencies installed.
+   
+3. Install pre-commit hooks:
 
-
+   ```bash
+   uv run pre-commit install
+   ```
+   
+   This will ensure that the linter (`ruff`), formatter (`ruff`), and type checker (`mypy`) is happy with your code every time you commit.
+   
 ### Running Tests
 
 Assuming you've set up your environment using `uv`, you can run the tests using the following command:
