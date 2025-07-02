@@ -32,8 +32,8 @@ theme:
   # favicon: assets/favicon.png
   highlightjs: true
   hljs_languages:
-    - yaml
-    - python
+      - yaml
+      - python
   language: en
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -51,10 +51,15 @@ theme:
           icon: material/weather-sunny
           name: Switch to light mode
   features:
-    - navigation.instant
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - toc.follow
+      - navigation.instant
+      - navigation.tabs
+      - navigation.tabs.sticky
+      - toc.follow
 
 nav:
   - ASTRA: index.md
+  - Tutorials: 
+      - tutorials/index.md
+      - tutorials/training_an_evaluator.md
+      - tutorials/running_an_evaluation.md
+  - Library API Reference: api/index.md
