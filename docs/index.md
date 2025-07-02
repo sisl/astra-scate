@@ -1,6 +1,6 @@
-# Adaptive Stress Testing for Robust AI & Reinforcement Learning (ASTRAL)
+# Adaptive Stress Testing for Robust AI & Reinforcement Learning (ASTRA-RL)
 
-Welcome to the ASTRAL toolbox documentation! This documentation provides an overview of the ASTRAL toolbox, its features, and how to use it effectively.
+Welcome to the ASTRA-RL toolbox documentation! This documentation provides an overview of the ASTRA-RL toolbox, its features, and how to use it effectively.
 
 !!! warning
     

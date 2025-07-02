@@ -13,6 +13,6 @@ app.add_typer(evaluate_cmd)
 # Entry point function needed by the package installation
 def main():
     """
-    Astral CLI - A command line interface for the Astral toolbox.
+    ASTRA-RL CLI - A command line interface for the ASTRA-RL toolbox.
     """
     app()

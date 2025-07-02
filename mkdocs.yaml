@@ -1,4 +1,4 @@
-site_name: ASTRAL Toolbox Documentation
+site_name: ASTRA-RL Toolbox Documentation
 site_author: Duncan Eddy
 site_description: Adaptive Stress Testing for Robust AI & Reinforcement Learning — a toolbox for testing and improving the robustness of AI systems.
 site_url: https://github.com/sisl/astra-rl

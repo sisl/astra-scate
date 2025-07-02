@@ -21,14 +21,14 @@
 
 # ASTRA-RL Toolbox
 
-ASTRA-RL ("ASTRAL") Python toolbox for training and evaluating language models and generative AI systems that
+ASTRA-RL is a python toolbox for training and evaluating language models and generative AI systems that
 use textual inputs. It provides a set of tools for training, evaluating, and analyzing
 language models, with a focus on applying reinforcement learning based refinement techniques
 to improve evaluator model performance.
 
 ## Installation
 
-To install the ASTRA toolbox, you can use pip. The package is available on PyPI, so you can install it directly from there.
+To install the ASTRA-RL toolbox, you can use pip. The package is available on PyPI, so you can install it directly from there.
 
 ```bash
 pip install astra-rl
@@ -37,7 +37,10 @@ pip install astra-rl
 You can then import the library in your Python code:
 
 ```python
-import astral
+import astra_rl
+
+# Or 
+import astra_rl as astral
 ```
 
 ## Development
@@ -52,7 +55,7 @@ To start, we _STRONGLY_ recommend using [uv](https://docs.astral.sh/uv/) to mana
 
    ```bash
    git clone git@github.com:sisl/astra-rl.git
-   cd astra
+   cd astra-rl
    ```
 
 1. Sync package dependencies:

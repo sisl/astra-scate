@@ -17,10 +17,10 @@ dependencies = [
 ]
 
 [project.scripts]
-astral = "astral.cli.main:main"
+astral = "astra_rl.cli.main:main"
 
 [tool.setuptools]
-py-modules = ['astral']
+py-modules = ['astra_rl']
 
 [tool.setuptools.packages.find]
 where = ["src"]
