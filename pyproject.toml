@@ -65,3 +65,11 @@ python_version = "3.12"
 strict = true
 ignore_missing_imports = true
 exclude = ["tests"]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["src/astra_rl"]
+omit = [
+    "tests/*",
+    "*/conftest.py",
+]
