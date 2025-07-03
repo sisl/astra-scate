@@ -8,8 +8,13 @@ on: [ workflow_call ]
 jobs:
   publish-docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages:   write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for accurate git revision dates
       - name: Install the latest version of uv and set the python version
         uses: astral-sh/setup-uv@v6
         with:
