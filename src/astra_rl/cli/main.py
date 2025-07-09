@@ -1,8 +1,8 @@
 import typer
 
 # Import commands & sub-commands
-from .train import app as train_cmd
-from .evaluate import app as evaluate_cmd
+from astra_rl.train import app as train_cmd
+from astra_rl.evaluate import app as evaluate_cmd
 
 app = typer.Typer()
 

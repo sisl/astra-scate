@@ -182,3 +182,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 /.dir-locals.el
+/scratchpad.py
