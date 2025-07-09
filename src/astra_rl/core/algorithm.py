@@ -26,19 +26,3 @@ class Algorithm(ABC):
     def step(self, batch: Dict[str, Any]) -> torch.Tensor:
         """take a step and comput loss"""
         pass
-
-
-class DPO(Algorithm):
-    ...
-
-    # TODO flatter => bottom half def rollout() from data.py
-    # TODO collate => standard batch and pad
-    # TODO: step => trainer.py's step
-
-
-"""
-class DPO(Algorithm):
-
-   def step(...):
-       ...
-"""

@@ -5,15 +5,13 @@ Generic class of an AstraProblem
 
 from abc import ABC, abstractmethod
 from collections import defaultdict
-from typing import Sequence, Dict, TypeVar, Generic, Union
+from typing import Sequence, Dict, Generic, Union
 
 import torch
 
 from astra_rl.logging import logger
 from astra_rl.core.moderator import Moderator
-
-StateT = TypeVar("StateT")
-ActionT = TypeVar("ActionT")
+from astra_rl.core.common import StateT, ActionT
 
 
 class ASTRAProblem(ABC, Generic[StateT, ActionT]):
@@ -127,17 +125,16 @@ class ASTRAProblem(ABC, Generic[StateT, ActionT]):
         pass
 
     @abstractmethod
-    def advance(
-        self, context: Sequence[StateT], continuation: Sequence[ActionT]
-    ) -> Sequence[StateT]:
+    def advance(self, context: StateT, attack: ActionT, response: StateT) -> StateT:
         """Given a context and continuation, returns the next state.
 
         Args:
-            context (Sequence[str]): Sequence of strings representing the context.
-            continuation (Sequence[str]): Sequence of strings representing the continuation.
+            context (str): Sequence of strings representing the context.
+            attack (str): Sequence of strings representing the attack given context.
+            response (str): Sequence of strings representing the defense against attack.
 
         Returns:
-                Sequence[str]: The next state after applying the continuation to the context.
+                str: The next state after applying the continuation to the context.
         """
         pass
 

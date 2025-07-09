@@ -3,10 +3,9 @@ moderator.py
 """
 
 from abc import ABC, abstractmethod
-from typing import Generic, Union, TypeVar, Sequence
+from typing import Generic, Union, Sequence
 
-StateT = TypeVar("StateT")
-ActionT = TypeVar("ActionT")
+from astra_rl.core.common import StateT, ActionT
 
 
 class Moderator(ABC, Generic[StateT, ActionT]):
