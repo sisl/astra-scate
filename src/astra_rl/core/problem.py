@@ -4,40 +4,41 @@ Generic class of an AstraProblem
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Any, Dict
 from collections import defaultdict
+from typing import Sequence, Dict, TypeVar, Generic, Union
 
 import torch
 
-from astra_rl.core.moderator import Moderator
 from astra_rl.logging import logger
+from astra_rl.core.moderator import Moderator
+
+StateT = TypeVar("StateT")
+ActionT = TypeVar("ActionT")
 
 
-class ASTRAProblem(ABC):
+class ASTRAProblem(ABC, Generic[StateT, ActionT]):
     """
     A problem is defined by
     - a dataset
     - models (defense, adversary, baseline) + how to call them
-    - moderator
     - reward formulation
     """
 
-    def __init__(self, moderator: Moderator):
-        self.moderator: Moderator = moderator
-
+    def __init__(self, moderator: Moderator[StateT, ActionT]) -> None:
         # we check all asserts once, and then disable them
-        self.__disable_asserts: Dict[str, bool] = defaultdict(bool)
+        self._disable_asserts: Dict[str, bool] = defaultdict(bool)
+        self.moderator = moderator
 
     @abstractmethod
     def get_target_logprobs(
-        self, context: List[str], continuation: List[str]
+        self, context: Sequence[StateT], continuation: Sequence[ActionT]
     ) -> torch.Tensor:
         """Evaluates P(continuation|context) on *model under test*.
 
         Args:
-            context (List[str]): List of strings, where each string is a context on which the
+            context (Sequence[str]): Sequence of strings, where each string is a context on which the
                                  continuation's probability is conditioned.
-            continuation (List[str]): List of strings, where each string is a continuation whose
+            continuation (Sequence[str]): Sequence of strings, where each string is a continuation whose
                                       probability is measured.
 
         Note:
@@ -52,15 +53,15 @@ class ASTRAProblem(ABC):
 
     @abstractmethod
     def get_baseline_logprobs(
-        self, context: List[str], continuation: List[str]
+        self, context: Sequence[StateT], continuation: Sequence[ActionT]
     ) -> torch.Tensor:
         """Evaluates P(continuation|context) on *attacker's baseline distribution* for KL
            divergence measurements.
 
         Args:
-            context (List[str]): List of strings, where each string is a context on which the
+            context (Sequence[str]): Sequence of strings, where each string is a context on which the
                                  continuation's probability is conditioned.
-            continuation (List[str]): List of strings, where each string is a continuation whose
+            continuation (Sequence[str]): Sequence of strings, where each string is a continuation whose
                                       probability is measured.
 
         Note:
@@ -77,14 +78,14 @@ class ASTRAProblem(ABC):
 
     @abstractmethod
     def get_attacker_logprobs(
-        self, context: List[str], continuation: List[str]
+        self, context: Sequence[StateT], continuation: Sequence[ActionT]
     ) -> torch.Tensor:
         """Evaluates P(continuation|context) on *attacker*. This must return tensor w/ grads!
 
         Args:
-            context (List[str]): List of strings, where each string is a context on which the
+            context (Sequence[str]): Sequence of strings, where each string is a context on which the
                                  continuation's probability is conditioned.
-            continuation (List[str]): List of strings, where each string is a continuation whose
+            continuation (Sequence[str]): Sequence of strings, where each string is a continuation whose
                                       probability is measured.
 
         Note:
@@ -98,58 +99,77 @@ class ASTRAProblem(ABC):
         pass
 
     @abstractmethod
-    def rollout_prompt_with_attacker(self, x: List[str]) -> List[str]:
+    def rollout_prompt_with_attacker(self, x: Sequence[StateT]) -> Sequence[ActionT]:
         """Rolls out the prompt with the attacker model. Do *not* return the prompt.
 
+        a ~ \pi(s)
+
         Args:
-            x (List[str]): List of strings representing the prompt to be rolled out.
+            x (Sequence[str]): Sequence of strings representing the prompt to be rolled out.
 
         Returns:
-            List[str]: The rolled out prompt with the adversary model.
+            Sequence[str]: The rolled out prompt with the adversary model.
         """
         pass
 
     @abstractmethod
-    def rollout_prompt_with_target(self, x: List[str]) -> List[str]:
+    def rollout_prompt_with_target(self, x: Sequence[StateT]) -> Sequence[StateT]:
         """Rolls out the prompt with the model under test. Do *not* return the prompt.
 
+        s' ~ \sum_a T(s, a)
+
         Args:
-            x (List[str]): List of strings representing the prompt to be rolled out.
+            x (Sequence[str]): Sequence of strings representing the prompt to be rolled out.
 
         Returns:
-            List[str]: The rolled out prompt with the adversary model.
+            Sequence[str]: The rolled out prompt with the adversary model.
         """
         pass
 
     @abstractmethod
-    @property
-    def flattener(self) -> Any:
+    def advance(
+        self, context: Sequence[StateT], continuation: Sequence[ActionT]
+    ) -> Sequence[StateT]:
+        """Given a context and continuation, returns the next state.
+
+        Args:
+            context (Sequence[str]): Sequence of strings representing the context.
+            continuation (Sequence[str]): Sequence of strings representing the continuation.
+
+        Returns:
+                Sequence[str]: The next state after applying the continuation to the context.
+        """
         pass
 
     @abstractmethod
-    def reward(self, step: Any) -> float:
+    def reward(
+        self,
+        context: Sequence[StateT],
+        attack: Sequence[ActionT],
+        response: Sequence[StateT],
+    ) -> Sequence[float]:
         pass
 
-    def __check_continuation(
-        self, check_key: str, context: List[str], continuation: List[str]
-    ) -> None:
-        if self.__disable_asserts[check_key]:
-            return
-        # make sure that we didn't repeat context in continuation
-        if len(context) > 0 and len(continuation) > 0:
-            assert context[0] not in continuation[0], (
-                "Context should not be repeated in continuation."
-            )
-        self.__disable_asserts[check_key] = True
+    ##### Utility methods for validation and checks #####
 
-    def __check_logprobs(
+    def _check_continuation(
+        self,
+        check_key: str,
+        context: Sequence[StateT],
+        continuation: Sequence[Union[ActionT, StateT]],
+    ) -> None:
+        if self._disable_asserts[check_key]:
+            return
+        self._disable_asserts[check_key] = True
+
+    def _check_logprobs(
         self,
         check_key: str,
         logprobs: torch.Tensor,
         ctx_length: int,
         requires_grad: bool = False,
     ) -> None:
-        if self.__disable_asserts[check_key]:
+        if self._disable_asserts[check_key]:
             return
         # check that logprobs is a tensor and has gradients
         assert isinstance(logprobs, torch.Tensor), (
@@ -173,35 +193,39 @@ class ASTRAProblem(ABC):
                 "Attacker *log*probs looks suspiciously like probabilities, "
                 "try taking the .log() of your tensor?"
             )
-        self.__disable_asserts[check_key] = True
+        self._disable_asserts[check_key] = True
 
-    def __get_attacker_logprobs_and_validate(
-        self, context: List[str], continuation: List[str]
+    def _get_attacker_logprobs_and_validate(
+        self, context: Sequence[StateT], continuation: Sequence[ActionT]
     ) -> torch.Tensor:
         logprobs = self.get_attacker_logprobs(context, continuation)
-        self.__check_logprobs("attacker_logprobs", logprobs, len(context), True)
+        self._check_logprobs("attacker_logprobs", logprobs, len(context), True)
         return logprobs
 
-    def __get_target_logprobs_and_validate(
-        self, context: List[str], continuation: List[str]
+    def _get_target_logprobs_and_validate(
+        self, context: Sequence[StateT], continuation: Sequence[ActionT]
     ) -> torch.Tensor:
         logprobs = self.get_target_logprobs(context, continuation)
-        self.__check_logprobs("target_logprobs", logprobs, len(context), False)
+        self._check_logprobs("target_logprobs", logprobs, len(context), False)
         return logprobs
 
-    def __get_baseline_logprobs_and_validate(
-        self, context: List[str], continuation: List[str]
+    def _get_baseline_logprobs_and_validate(
+        self, context: Sequence[StateT], continuation: Sequence[ActionT]
     ) -> torch.Tensor:
         logprobs = self.get_baseline_logprobs(context, continuation)
-        self.__check_logprobs("baseline_logprobs", logprobs, len(context), False)
+        self._check_logprobs("baseline_logprobs", logprobs, len(context), False)
         return logprobs
 
-    def __rollout_prompt_with_attacker_and_validate(self, x: List[str]) -> List[str]:
+    def _rollout_prompt_with_attacker_and_validate(
+        self, x: Sequence[StateT]
+    ) -> Sequence[ActionT]:
         rolled_out = self.rollout_prompt_with_attacker(x)
-        self.__check_continuation("attacker_rollout", x, rolled_out)
+        self._check_continuation("attacker_rollout", x, rolled_out)
         return rolled_out
 
-    def __rollout_prompt_with_target_and_validate(self, x: List[str]) -> List[str]:
+    def _rollout_prompt_with_target_and_validate(
+        self, x: Sequence[StateT]
+    ) -> Sequence[StateT]:
         rolled_out = self.rollout_prompt_with_target(x)
-        self.__check_continuation("target_rollout", x, rolled_out)
+        self._check_continuation("target_rollout", x, rolled_out)
         return rolled_out
