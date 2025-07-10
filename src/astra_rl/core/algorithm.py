@@ -8,7 +8,7 @@ from typing import Sequence, Generic
 import torch
 
 from astra_rl.core.problem import Problem
-from astra_rl.core.rollout import Graph
+from astra_rl.core.environment import Graph
 from astra_rl.core.common import Step, Batch, StateT, ActionT
 
 

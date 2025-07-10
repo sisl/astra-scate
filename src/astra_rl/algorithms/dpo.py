@@ -4,7 +4,7 @@ from typing import Generic, Sequence, List
 from astra_rl.core.algorithm import Algorithm
 from astra_rl.core.problem import Problem
 from astra_rl.core.common import StateT, ActionT
-from astra_rl.core.rollout import Graph
+from astra_rl.core.environment import Graph
 
 import torch
 import torch.nn.functional as F
@@ -84,20 +84,20 @@ class DPO(
         attacker_logprobs_win = self.problem._get_attacker_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
         )
-        attacker_logprobs_loose = self.problem._get_attacker_logprobs_and_validate(
+        attacker_logprobs_loss = self.problem._get_attacker_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
         )
         baseline_logprobs_win = self.problem._get_baseline_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
         )
-        baseline_logprobs_loose = self.problem._get_baseline_logprobs_and_validate(
+        baseline_logprobs_loss = self.problem._get_baseline_logprobs_and_validate(
             batch.prefixes, batch.suffix_neg
         )
 
         # https://github.com/eric-mitchell/direct-preference-optimization/blob/ \
         # f8b8c0f49dc92a430bae41585f9d467d3618fe2f/trainers.py#L70-L87
-        pi_logratios = attacker_logprobs_win - attacker_logprobs_loose
-        ref_logratios = baseline_logprobs_win - baseline_logprobs_loose
+        pi_logratios = attacker_logprobs_win - attacker_logprobs_loss
+        ref_logratios = baseline_logprobs_win - baseline_logprobs_loss
         logits = pi_logratios - ref_logratios
 
         loss = -F.logsigmoid(self.beta * logits)
@@ -115,20 +115,20 @@ class IPO(DPO[StateT, ActionT]):
         attacker_logprobs_win = self.problem._get_attacker_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
         )
-        attacker_logprobs_loose = self.problem._get_attacker_logprobs_and_validate(
+        attacker_logprobs_loss = self.problem._get_attacker_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
         )
         baseline_logprobs_win = self.problem._get_baseline_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
         )
-        baseline_logprobs_loose = self.problem._get_baseline_logprobs_and_validate(
+        baseline_logprobs_loss = self.problem._get_baseline_logprobs_and_validate(
             batch.prefixes, batch.suffix_neg
         )
 
         # https://github.com/eric-mitchell/direct-preference-optimization/blob/ \
         # f8b8c0f49dc92a430bae41585f9d467d3618fe2f/trainers.py#L70-L87
-        pi_logratios = attacker_logprobs_win - attacker_logprobs_loose
-        ref_logratios = baseline_logprobs_win - baseline_logprobs_loose
+        pi_logratios = attacker_logprobs_win - attacker_logprobs_loss
+        ref_logratios = baseline_logprobs_win - baseline_logprobs_loss
         logits = pi_logratios - ref_logratios
 
         loss = (logits - 1 / (2 * self.beta)) ** 2

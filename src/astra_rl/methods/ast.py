@@ -12,7 +12,7 @@ import torch
 
 from astra_rl.core.problem import Problem
 from astra_rl.core.moderator import Moderator
-from astra_rl.core.rollout import Node, Graph, RolloutGenerator
+from astra_rl.core.environment import Node, Graph, Environment
 
 
 class ASTProblem(Problem[str, str]):
@@ -60,7 +60,7 @@ class ASTProblem(Problem[str, str]):
 ASTNode = Node[str, str]
 
 
-class ASTTreeRolloutGenerator(RolloutGenerator[str, str]):
+class ASTEnvironment(Environment[str, str]):
     def __init__(
         self,
         problem: ASTProblem,

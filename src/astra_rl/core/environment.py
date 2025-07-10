@@ -27,7 +27,7 @@ class Graph(Generic[StateT, ActionT]):
     children: Sequence[Node[StateT, ActionT]]
 
 
-class RolloutGenerator(ABC, Generic[StateT, ActionT]):
+class Environment(ABC, Generic[StateT, ActionT]):
     def __init__(self, problem: Problem[StateT, ActionT]):
         self.problem = problem
 
