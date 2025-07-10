@@ -38,7 +38,9 @@ class ASTProblem(ASTRAProblem[str, str]):
         combined_uts = [j + k for j, k in zip(attack, response)]
         combined_scores: Sequence[float] = self.moderator.moderate(combined_uts)
         defender_scores: Sequence[float] = self.moderator.moderate(response)
-        attack_ppls: torch.Tensor = self.get_target_logprobs(context, attack).exp()
+        attack_ppls: torch.Tensor = self._get_target_logprobs_and_validate(
+            context, attack
+        ).exp()
 
         reward: Sequence[float] = (
             (
@@ -77,8 +79,8 @@ class ASTTreeRolloutGenerator(RolloutGenerator[str, str]):
             return []
 
         prompts = [prompt for _ in range(self.tree_width)]
-        attacks = self.problem.rollout_prompt_with_attacker(prompts)
-        defenses = self.problem.rollout_prompt_with_target(
+        attacks = self.problem._rollout_prompt_with_attacker_and_validate(prompts)
+        defenses = self.problem._rollout_prompt_with_target_and_validate(
             [prompt + i for i in attacks]
         )
         rewards = self.problem.reward(prompts, attacks, defenses)

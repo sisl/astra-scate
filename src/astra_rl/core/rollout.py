@@ -23,7 +23,7 @@ class Node(Generic[StateT, ActionT]):
 
 @dataclass
 class Graph(Generic[StateT, ActionT]):
-    prompt: StateT
+    context: StateT
     children: Sequence[Node[StateT, ActionT]]
 
 
