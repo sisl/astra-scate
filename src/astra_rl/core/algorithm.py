@@ -20,8 +20,8 @@ class Algorithm(ABC, Generic[StateT, ActionT, Step, Batch]):
     def flatten(self, graph: Graph[StateT, ActionT]) -> Sequence[Step]:
         pass
 
-    @abstractmethod
     @staticmethod
+    @abstractmethod
     def collate_fn(batch: Sequence[Step]) -> Batch:
         """the collate_fn for torch dataloaders for batching"""
         pass

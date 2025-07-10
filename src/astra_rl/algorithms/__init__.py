@@ -1,3 +1,3 @@
-from .dpo import DPO, IPO
+from .dpo import DPO, IPO, DPOBatch, DPOStep
 
-__all__ = ("DPO", "IPO")
+__all__ = ("DPO", "IPO", "DPOBatch", "DPOStep")
