@@ -5,7 +5,7 @@ Generic class of an AstraProblem
 
 from abc import ABC, abstractmethod
 from collections import defaultdict
-from typing import Sequence, Dict, Generic, Union
+from typing import Sequence, Dict, Generic, Union, Iterator
 
 import torch
 
@@ -100,7 +100,7 @@ class Problem(ABC, Generic[StateT, ActionT]):
     def rollout_prompt_with_attacker(self, x: Sequence[StateT]) -> Sequence[ActionT]:
         """Rolls out the prompt with the attacker model. Do *not* return the prompt.
 
-        a ~ \pi(s)
+        a ~ \\pi(s)
 
         Args:
             x (Sequence[str]): Sequence of strings representing the prompt to be rolled out.
@@ -114,7 +114,7 @@ class Problem(ABC, Generic[StateT, ActionT]):
     def rollout_prompt_with_target(self, x: Sequence[StateT]) -> Sequence[StateT]:
         """Rolls out the prompt with the model under test. Do *not* return the prompt.
 
-        s' ~ \sum_a T(s, a)
+        s' ~ \\sum_a T(s, a)
 
         Args:
             x (Sequence[str]): Sequence of strings representing the prompt to be rolled out.
@@ -135,6 +135,16 @@ class Problem(ABC, Generic[StateT, ActionT]):
 
         Returns:
                 str: The next state after applying the continuation to the context.
+        """
+        pass
+
+    @abstractmethod
+    def parameters(self) -> Iterator[torch.nn.parameter.Parameter]:
+        """Return the trainable parameters in this problem.
+
+        Returns:
+            Iterator[torch.nn.parameter.Parameter]: An iterator over the trainable parameters.
+            usually just by calling model.parameters()
         """
         pass
 
@@ -173,7 +183,9 @@ class Problem(ABC, Generic[StateT, ActionT]):
             "Attacker logprobs must be a torch.Tensor."
         )
         if requires_grad:
-            assert logprobs.requries_grad, "Attacker logprobs must be a torch.Tensor."
+            assert logprobs.requires_grad, (
+                "Attacker logprobs must carry gradient information."
+            )
         # check that the size of the tensor is B x 1, where B is the batch size
         if logprobs.dim() == 1:
             logprobs = logprobs.unsqueeze(1)
