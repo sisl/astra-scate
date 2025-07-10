@@ -27,7 +27,7 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         environment: Environment[StateT, ActionT],
         algorithm: Algorithm[StateT, ActionT, Step, Batch],
         num_episodes_per_experience: int = 32,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> None:
         """Harness for running an algorithm in a given environment.
 

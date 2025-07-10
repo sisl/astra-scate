@@ -19,7 +19,7 @@ repos:
            "--strict",
            "--ignore-missing-imports"
          ]
-         exclude: tests/
+         exclude: ^(examples|tests)/
 
   # Additional useful hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
