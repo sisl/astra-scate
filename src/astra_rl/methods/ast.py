@@ -10,12 +10,12 @@ from typing import Sequence, Optional, Union
 
 import torch
 
-from astra_rl.core.problem import ASTRAProblem
+from astra_rl.core.problem import Problem
 from astra_rl.core.moderator import Moderator
 from astra_rl.core.rollout import Node, Graph, RolloutGenerator
 
 
-class ASTProblem(ASTRAProblem[str, str]):
+class ASTProblem(Problem[str, str]):
     def __init__(
         self,
         moderator: Moderator[str, str],

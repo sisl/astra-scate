@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from typing import Sequence, Generic, Self, Optional
 
 from astra_rl.core.common import StateT, ActionT
-from astra_rl.core.problem import ASTRAProblem
+from astra_rl.core.problem import Problem
 
 
 @dataclass
@@ -28,7 +28,7 @@ class Graph(Generic[StateT, ActionT]):
 
 
 class RolloutGenerator(ABC, Generic[StateT, ActionT]):
-    def __init__(self, problem: ASTRAProblem[StateT, ActionT]):
+    def __init__(self, problem: Problem[StateT, ActionT]):
         self.problem = problem
 
     @abstractmethod

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Generic, Sequence, List
 
 from astra_rl.core.algorithm import Algorithm
-from astra_rl.core.problem import ASTRAProblem
+from astra_rl.core.problem import Problem
 from astra_rl.core.common import StateT, ActionT
 from astra_rl.core.rollout import Graph
 
@@ -30,7 +30,7 @@ class DPO(
     Algorithm[StateT, ActionT, DPOStep[StateT, ActionT], DPOBatch[StateT, ActionT]],
     Generic[StateT, ActionT],
 ):
-    def __init__(self, problem: ASTRAProblem[StateT, ActionT], beta: float = 0.1):
+    def __init__(self, problem: Problem[StateT, ActionT], beta: float = 0.1):
         super().__init__(problem)
 
         self.beta = beta

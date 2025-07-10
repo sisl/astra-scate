@@ -14,7 +14,7 @@ from astra_rl.core.moderator import Moderator
 from astra_rl.core.common import StateT, ActionT
 
 
-class ASTRAProblem(ABC, Generic[StateT, ActionT]):
+class Problem(ABC, Generic[StateT, ActionT]):
     """
     A problem is defined by
     - a dataset
