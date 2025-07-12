@@ -1,5 +1,5 @@
 """
-ast_gpt2.py
+ast.py
 A basic example of how to use the ASTRA package.
 We use GPT-2 as our attack, defense, and use the bulit-in
 detoxify moderator. We will train using a manually written

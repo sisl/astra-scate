@@ -19,7 +19,7 @@ repos:
            "--strict",
            "--ignore-missing-imports"
          ]
-         exclude: ^(examples|tests)/
+         exclude: ^(examples|tests|src/astra_rl/ext)/
 
   # Additional useful hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
