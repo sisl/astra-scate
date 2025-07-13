@@ -26,6 +26,23 @@ from astra_rl.methods.ast import ASTProblem
 
 
 class HFASTProblem(ASTProblem):
+    """Huggingface Transformers adaptor for ASTProblem.
+
+    This class extends the ASTProblem to work with Huggingface Transformers models without
+    the boilerplate needed to figure out logprobs and rollouts.
+
+    Attributes:
+        device (str): The device to run the models on (default is "cpu").
+        attacker (AutoModelForCausalLM): The attacker model used for generating sequences.
+        attacker_tokenizer (PreTrainedTokenizer): The tokenizer for the attacker model.
+        target (AutoModelForCausalLM): The target model used for evaluating sequences.
+        target_tokenizer (PreTrainedTokenizer): The tokenizer for the target model.
+        baseline (AutoModelForCausalLM): The baseline model used for comparison.
+        baseline_tokenizer (PreTrainedTokenizer): The tokenizer for the baseline model.
+
+    See astra_rl.methods.ast.ASTProblem for more details on usage.
+    """
+
     def __init__(
         self,
         attacker_model_id: str,
@@ -34,6 +51,15 @@ class HFASTProblem(ASTProblem):
         moderator: Moderator[str, str],
         device: str = "cpu",
     ) -> None:
+        """Initialize an HFASTProblem instance from Huggingface model IDs.
+
+        Args:
+            attacker_model_id (str): The model ID for the attacker model, must be possible for AutoModelForCausalLM.
+            target_model_id (str): The model ID for the target model, must be possible for AutoModelForCausalLM.
+            baseline_model_id (Optional[str]): The model ID for the baseline model, if any; otherwise defaults to target model.
+            moderator (Moderator): The moderator used to evaluate sequences.
+            device (str): The device to run the models on (default is "cpu").
+        """
         super().__init__(moderator)
 
         self.device = device

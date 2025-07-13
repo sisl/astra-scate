@@ -22,6 +22,66 @@ class ListDataset(Dataset[Step], Generic[Step]):
 
 
 class Harness(Generic[StateT, ActionT, Step, Batch]):
+    """Harness for running an algorithm in a given environment.
+
+    Example:
+
+        Here is an example of how to use the `Harness` class with the DPO algorithm
+        and an AST problem environment for *one episode only*. You should add your
+        own optimization things such as weight decay or scheduling and figure out
+        early stopping, etc.
+
+        >>> import torch
+        >>> from astra_rl.training.harness import (
+        ...     Harness,
+        ... )
+        >>> from astra_rl.algorithms.dpo import (
+        ...     DPO,
+        ... )
+        >>> from astra_rl.methods.ast import (
+        ...     ASTProblem,
+        ...     ASTEnvironment,
+        ... )
+        >>>
+        >>> problem = (
+        ...     ASTProblem()
+        ... )
+        >>> environment = (
+        ...     ASTEnvironment(
+        ...         problem, ...
+        ...     )
+        ... )
+        >>> algorithm = DPO(...)
+        >>> harness = Harness(
+        ...     environment,
+        ...     algorithm,
+        ... )
+        >>> optimizer = torch.optim.Adam(
+        ...     problem.parameters(),
+        ...     lr=1e-4,
+        ... )
+        >>>
+        >>> for batch in harness.experience():
+        ...     loss = harness.step(
+        ...         batch
+        ...     )
+        ...     loss.backward()
+        ...     optimizer.zero_grad()
+
+
+    Attributes:
+        environment (Environment[StateT, ActionT]): The environment to run the algorithm in.
+        algorithm (Algorithm[StateT, ActionT, Step, Batch]): The algorithm to run.
+        num_episodes_per_experience (int): Number of episodes per call to `.experience()`.
+        dataloader_kwargs (Dict[str, Any]): Keyword arguments for the PyTorch data loader. Batch size, for instance, should be set.
+
+    Generics:
+        StateT (type): The type of the state in the environment.
+        ActionT (type): The type of the action in the environment.
+        Step (type): The type of a single step in the environment.
+        Batch (type): The type of a batch of steps, passed to the `.step()` function for gradient.
+    """
+
     def __init__(
         self,
         environment: Environment[StateT, ActionT],
@@ -29,8 +89,7 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         num_episodes_per_experience: int = 32,
         **kwargs: Any,
     ) -> None:
-        """Harness for running an algorithm in a given environment.
-
+        """
         Args:
             environment (Environment[StateT, ActionT]): The environment to run the algorithm in.
             algorithm (Algorithm[StateT, ActionT, Step, Batch]): The algorithm to run.

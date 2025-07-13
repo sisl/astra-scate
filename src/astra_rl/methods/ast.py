@@ -16,6 +16,19 @@ from astra_rl.core.environment import Node, Graph, Environment
 
 
 class ASTProblem(Problem[str, str]):
+    """Adaptive Stress Testing for Large Language Model Red-Teaming.
+
+    Implements https://arxiv.org/abs/2407.09447.
+
+    For usage examples, see `astra_rl.core.problem.Problem`.
+
+    Attributes:
+        moderator (Moderator): The moderator used to evaluate the sequences.
+        ppl_weight (float): Weight for perplexity in the reward calculation.
+        combined_weight (float): Weight for combined scores in the reward calculation.
+        defense_toxicity_weight (float): Weight for defense toxicity in the reward calculation.
+    """
+
     def __init__(
         self,
         moderator: Moderator[str, str],
@@ -61,6 +74,29 @@ ASTNode = Node[str, str]
 
 
 class ASTEnvironment(Environment[str, str]):
+    """The ASTPrompter Rollout Environment
+
+    Implements https://arxiv.org/abs/2407.09447.
+
+    Specifically, this is the original rollout system used in the
+    ASTPrompter paper, the case of red-teaming where we have
+    the attacker and defender generates successive turns of strings,
+    each of which is appended to the prompt of the other. They do not
+    have IFT or other types of structure.
+
+    For usage examples, see `astra_rl.core.environment.Environment`.
+
+    Attributes:
+        problem (ASTProblem): The problem instance that defines the environment and actions.
+        prompts (Sequence[str]): A sequence of initial prompts to start the rollout.
+        tree_width (int): The number of branches at each node in the rollout tree.
+        tree_depth (int): The depth of the rollout tree.
+
+    Generics:
+        StateT (str): The type of the state in the environment, which is a string.
+        ActionT (str): The type of the action in the environment, which is also a string.
+    """
+
     def __init__(
         self,
         problem: ASTProblem,

@@ -15,11 +15,23 @@ from astra_rl.core.common import StateT, ActionT
 
 
 class Problem(ABC, Generic[StateT, ActionT]):
-    """
-    A problem is defined by
-    - a dataset
-    - models (defense, adversary, baseline) + how to call them
-    - reward formulation
+    """Defines the core problem interface for Astra RL.
+
+    This class is responsible for defining how exactly to interact
+    with the system under test---with generics in terms of how to get
+    probabilities and rollouts from the attacker and target models.
+
+    This allows for us to be generic over the types of states, actions
+    as well as how to measure them. We ask for a moderator as a way to
+    ensure that subclasses can all be generic over the exact metric, and
+    instead can only be opinonated about how to achieve the metric.
+
+    Attributes:
+        moderator (Moderator[StateT, ActionT]): The moderator used to evaluate sequences.
+
+    Generics:
+        StateT (type): The type of the state in the environment.
+        ActionT (type): The type of the action in the environment.
     """
 
     def __init__(self, moderator: Moderator[StateT, ActionT]) -> None:
