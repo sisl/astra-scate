@@ -33,6 +33,56 @@ class TrainingConfiguration(BaseModel):
 
 
 class Trainer(Generic[StateT, ActionT, Step, Batch]):
+    """A high-level trainer that pushbutton trains your policy
+
+    Example:
+        Here is an example of how to use the `Trainer` class with the DPO algorithm
+        and an AST problem environment
+
+        >>> import torch
+        >>> from astra_rl import (
+        ...     Trainer,
+        ...     TrainingConfiguration,
+        ... )
+        >>> from astra_rl.algorithms.dpo import (
+        ...     DPO,
+        ... )
+        >>> from astra_rl.methods.ast import (
+        ...     ASTProblem,
+        ...     ASTEnvironment,
+        ... )
+        >>>
+        >>> problem = (
+        ...     ASTProblem()
+        ... )
+        >>> environment = (
+        ...     ASTEnvironment(
+        ...         problem, ...
+        ...     )
+        ... )
+        >>> algorithm = DPO(...)
+        >>> config = TrainingConfiguration(
+        ...     lr=1e-3,
+        ...     batch_size=16,
+        ...     optimizer="adamw",
+        ...     gradient_accumulation_steps=1,
+        ...     training_steps=1024,
+        ...     num_episodes_per_experience=8,
+        ... )
+        >>> trainer = Trainer(
+        ...     config,
+        ...     environment,
+        ...     algorithm,
+        ... )
+        >>> trainer.train()
+
+    Attributes:
+        config (TrainingConfiguration): The configuration for the training process.
+        harness (Harness): The harness that manages the training loop and interactions with the environment. See `astra_rl.training.harness` for what it does.
+        optimizer (Optimizer): The optimizer used for updating the model parameters.
+        _global_step_counter (int): A counter for global steps, used for gradient accumulation.
+    """
+
     optimizer: Optimizer
 
     def __init__(
@@ -41,6 +91,13 @@ class Trainer(Generic[StateT, ActionT, Step, Batch]):
         environment: Environment[StateT, ActionT],
         algorithm: Algorithm[StateT, ActionT, Step, Batch],
     ):
+        """
+        Args:
+            config (TrainingConfiguration): The configuration for the training process.
+            environment (Environment): The environment to run our algorithm in.
+            algorithm (Algorithm): The algorithm used for training the attacker agent.
+        """
+
         self.config = config
         self.harness = Harness(
             environment, algorithm, config.num_episodes_per_experience
@@ -77,6 +134,14 @@ class Trainer(Generic[StateT, ActionT, Step, Batch]):
         self._global_step_counter = 0
 
     def train(self) -> None:
+        """Run training by the specified config!
+
+        Note:
+            This method takes no arguments and returns nothing, and its
+            only used for side effects. We don't really need it other than
+            its helpful for delaying the training process until we are ready
+            to run it for other initialization.
+        """
         for _ in range(self.config.training_steps):
             buf = self.harness.experience()
             for batch in buf:
