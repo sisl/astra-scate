@@ -1,3 +1,3 @@
-from .ast import ASTEnvironment, ASTProblem, ASTNode
+from .ast_problem import ASTEnvironment, ASTProblem, ASTNode
 
 __all__ = ("ASTEnvironment", "ASTProblem", "ASTNode")

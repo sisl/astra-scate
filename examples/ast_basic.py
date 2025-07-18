@@ -1,12 +1,12 @@
 """
-ast.py
+ast_basic.py
 A basic example of how to use the ASTRA package.
 We use GPT-2 as our attack, defense, and use the bulit-in
 detoxify moderator. We will train using a manually written
 corpora below of initial prompts.
 """
 
-# requirements: transformers tokenizers
+# requirements: transformers tokenizers wandb
 # requirements: ..
 
 import torch
