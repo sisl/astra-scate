@@ -6,7 +6,7 @@ detoxify moderator. We will train using a manually written
 corpora below of initial prompts.
 """
 
-# requirements: transformers tokenizers wandb
+# requirements: transformers tokenizers
 # requirements: ..
 
 import torch
