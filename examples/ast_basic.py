@@ -19,7 +19,7 @@ from astra_rl import ASTProblem, ASTEnvironment, DPO, DetoxifyModerator, Harness
 MODEL_NAME = "gpt2"
 
 
-class GPT2VsGPT2vsDetoxify(ASTProblem):
+class ExampleDetoxifyProblem(ASTProblem):
     def __init__(self, device="cpu"):
         # TASK: initialize and pass to superclass
         # your choice of moderator
@@ -132,7 +132,7 @@ def main() -> None:
     DEVICE = "cuda"  # cuda/cpu/mps
 
     # instatiate our problem and environment
-    problem = GPT2VsGPT2vsDetoxify(DEVICE)  # or "cuda" if you have a GPU
+    problem = ExampleDetoxifyProblem(DEVICE)  # or "cuda" if you have a GPU
     env = ASTEnvironment(problem, PROMPTS)
 
     # instantiate our solution
