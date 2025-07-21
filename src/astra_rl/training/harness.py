@@ -1,5 +1,4 @@
 from typing import Generic, Sequence, Optional, Dict, Any, Iterator
-from abc import abstractmethod
 import os
 
 import torch
@@ -187,7 +186,6 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
             return run
         return None
 
-    @abstractmethod
     def log_current_step(self, current_logs: dict[Any, Any]) -> None:
         """Log the current step metrics to Weights & Biases (if enabled) and logger.
 
