@@ -93,8 +93,9 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         num_episodes_per_experience: int = 32,
         use_wandb: bool = True,
         wandb_kwargs: Optional[Dict[str, Any]] = None,
-        **kwargs: Any,
+        dataloader_kwargs: Optional[Dict[str, Any]] = None,
     ) -> None:
+        # TODO: Update docstring with new arguments + add example with kwargs? dataloader_kwargs with shuffle an dbatch size etc.
         """
         Args:
             environment (Environment[StateT, ActionT]): The environment to run the algorithm in.
@@ -108,7 +109,7 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         self.num_episodes_per_experience = num_episodes_per_experience
         self.use_wandb = use_wandb
         self.wandb_kwargs = wandb_kwargs or {}
-        self.dataloader_kwargs: Dict[str, Any] = kwargs
+        self.dataloader_kwargs: Dict[str, Any] = dataloader_kwargs or {}
 
         # Wandb initialization and error handling; checking that WANDB_API_KEY is set
         self.wandb = self.init_wandb()
