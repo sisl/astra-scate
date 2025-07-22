@@ -94,13 +94,13 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         wandb_kwargs: Optional[Dict[str, Any]] = None,
         dataloader_kwargs: Optional[Dict[str, Any]] = None,
     ) -> None:
-        # TODO: Update docstring with new arguments + add example with kwargs? dataloader_kwargs with shuffle an dbatch size etc.
         """
         Args:
             environment (Environment[StateT, ActionT]): The environment to run the algorithm in.
             algorithm (Algorithm[StateT, ActionT, Step, Batch]): The algorithm to run.
             rollouts_per_eps (int, optional): Number of episodes per call to `.experience()`. Defaults to 32.
-            **kwargs: keyword arguments for the PyTorch data loader constructed on the fly
+            wandb_kwargs (Optional[Dict[str, Any]], optional): Keyword arguments for configuring Weights & Biases. Defaults to None.
+            dataloader_kwargs (Optional[Dict[str, Any]], optional): Keyword arguments for the PyTorch DataLoader, such as batch size and shuffle. Defaults to None.
         """
 
         self.environment = environment
@@ -120,7 +120,9 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
             dataset (ListDataset): The dataset to run the algorithm on.
 
         Returns:
-            torch.Tensor: The loss computed by the algorithm.
+            tuple[torch.Tensor, dict[Any, Any]]: A tuple containing:
+                - torch.Tensor: The loss computed by the algorithm (for current batch).
+                - dict[Any, Any]: Additional information for logging.
         """
 
         result: torch.Tensor

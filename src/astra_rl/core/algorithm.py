@@ -71,6 +71,8 @@ class Algorithm(ABC, Generic[StateT, ActionT, Step, Batch]):
             batch (Batch): A batch of data to process.
 
         Returns:
-            torch.Tensor: The computed loss for the batch.
+            tuple[torch.Tensor, dict[Any, Any]]: A tuple containing:
+                - torch.Tensor: The loss computed by the algorithm (for current batch).
+                - dict[Any, Any]: Additional information for logging.
         """
         pass
