@@ -87,7 +87,7 @@ class DPO(
             batch.prefixes, batch.suffix_pos
         )
         attacker_logprobs_loss = self.problem._get_attacker_logprobs_and_validate(
-            batch.prefixes, batch.suffix_pos
+            batch.prefixes, batch.suffix_neg
         )
         baseline_logprobs_win = self.problem._get_baseline_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
@@ -145,7 +145,7 @@ class IPO(DPO[StateT, ActionT]):
             batch.prefixes, batch.suffix_pos
         )
         attacker_logprobs_loss = self.problem._get_attacker_logprobs_and_validate(
-            batch.prefixes, batch.suffix_pos
+            batch.prefixes, batch.suffix_neg
         )
         baseline_logprobs_win = self.problem._get_baseline_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
