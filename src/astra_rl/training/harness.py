@@ -130,7 +130,7 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         result, logging_dict = self.algorithm.step(batch)
         step_logs: dict[Any, Any] = {}
 
-        # TODO: Add other values here to logs besides algorithm specifics?
+        # TODO: Add other values here to logs besides algorithm specifics? Alternatively, can just return logging_dict
         step_logs = {
             **logging_dict,
         }
@@ -178,15 +178,12 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
             Optional[wandb.Run]: The wandb run object if initialized, otherwise None.
         """
 
-        if self.use_wandb:
-            if "WANDB_API_KEY" not in os.environ:
-                raise EnvironmentError(
-                    "WANDB_API_KEY environment variable is not set. Please set it to use Weights & Biases."
-                )
-            # TODO: This was a hotfix, but all other ways failed me (Max)
-            run = wandb.init(project="astra_rl", config=self.wandb_kwargs)  # type: ignore[attr-defined]
-            return run
-        return None
+        if "WANDB_API_KEY" not in os.environ:
+            raise EnvironmentError(
+                "WANDB_API_KEY environment variable is not set. Please set it to use Weights & Biases."
+            )
+        run = wandb.init(project="astra_rl", config=self.wandb_kwargs)  # type: ignore[attr-defined]
+        return run
 
     def log_current_step(self, current_logs: dict[Any, Any]) -> None:
         """Log the current step metrics to Weights & Biases (if enabled) and logger.
