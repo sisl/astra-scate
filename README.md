@@ -53,7 +53,7 @@ To start, we _STRONGLY_ recommend using [uv](https://docs.astral.sh/uv/) to mana
 1. Clone the repository:
 
    ```bash
-   git clone git@github.com:sisl/astra-rl.git
+   git clone https://github.com/sisl/astra-rl.git
    cd astra-rl
    ```
 
