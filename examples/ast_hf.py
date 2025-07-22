@@ -37,7 +37,11 @@ def main() -> None:
     # this is a training harness, from which we can call various functions to
     # handle training details
     harness = Harness(
-        env, solver, batch_size=4, num_episodes_per_experience=2, use_wandb=True
+        env,
+        solver,
+        num_episodes_per_experience=2,
+        use_wandb=True,
+        dataloader_kwargs={"batch_size": 4},
     )
 
     # optimization step
