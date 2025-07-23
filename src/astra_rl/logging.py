@@ -48,7 +48,7 @@ class ASTRAWandbLogger:
             raise EnvironmentError(
                 "WANDB_API_KEY environment variable is not set. Please set it to use Weights & Biases."
             )
-        self.run = wandb.init(project="astra_rl", config=wandb_kwargs)  # type: ignore[attr-defined]
+        self.run = wandb.init(project="astra_rl", config=wandb_kwargs)
 
     def log(self, current_logs: Dict[Any, Any]) -> None:
         """Log the current step to Weights & Biases.

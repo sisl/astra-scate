@@ -93,8 +93,8 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
     ) -> None:
         """
         Args:
-            environment (Environment[StateT, ActionT]): The environment to run the algorithm in.
-            algorithm (Algorithm[StateT, ActionT, Step, Batch]): The algorithm to run.
+            environment (Environment): The environment to run the algorithm in.
+            algorithm (Algorithm): The algorithm to run.
             rollouts_per_eps (int, optional): Number of episodes per call to `.experience()`. Defaults to 32.
             wandb_kwargs (Optional[Dict[str, Any]], optional): Keyword arguments for configuring Weights & Biases. Defaults to None.
             dataloader_kwargs (Optional[Dict[str, Any]], optional): Keyword arguments for the PyTorch DataLoader, such as batch size and shuffle. Defaults to None.
