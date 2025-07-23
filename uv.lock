@@ -28,6 +28,11 @@ dependencies = [
     { name = "wandb" },
 ]
 
+[package.optional-dependencies]
+wandb = [
+    { name = "wandb" },
+]
+
 [package.dev-dependencies]
 dev = [
     { name = "coverage" },
@@ -52,7 +57,9 @@ requires-dist = [
     { name = "transformers", specifier = ">=4.53.1" },
     { name = "typer", specifier = ">=0.16.0" },
     { name = "wandb", specifier = ">=0.21.0" },
+    { name = "wandb", marker = "extra == 'wandb'", specifier = ">=0.12.0" },
 ]
+provides-extras = ["wandb"]
 
 [package.metadata.requires-dev]
 dev = [
