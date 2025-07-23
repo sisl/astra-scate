@@ -40,7 +40,6 @@ class ASTRAWandbLogger:
         """
 
         if not is_wandb_installed:
-            # TODO: astra_rl[wandb] optional dependency not implemented
             raise ImportError(
                 "Wandb not installed. Install it with `pip install wandb` or `pip install astra_rl[wandb]` to use Weights & Biases logging."
             )
