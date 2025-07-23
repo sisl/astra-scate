@@ -1,10 +1,6 @@
 """
 trainer.py
-This is a high-level trainer that imports the utilities in
-harness.py to create a pushbutton interface for training.
-
-Of course it will make a bunch of decisions for you. If
-you don't want that, the use the interface in harness.py.
+The trainer is an opinionated interface designed for making training new models easy. To gain full customization over the model training pipeline, we recommend using the lower-level `Harness` interface in `harness.py`.
 """
 
 import torch
@@ -19,6 +15,17 @@ from astra_rl.core.common import ActionT, StateT, Batch, Step
 
 
 class TrainingConfiguration(BaseModel):
+    """A typechecked dataclass which configures the training procedure.
+
+    Attributes:
+        lr (float): Learning rate for the optimizer.
+        batch_size (int): Size of each batch (after flattening from experience) for training.
+        optimizer (str): Type of optimizer to use [choices: "adam", "adamw", "sgd", "rmsprop", "adagrad"].
+        gradient_accumulation_steps (int): Number of steps to accumulate gradients before updating the model weights.
+        training_steps (int): Total number of rollouts to run and train for.
+        num_episodes_per_experience (int): Number of rollouts to run before making a gradient update.
+    """
+
     # optimization configuration
     lr: float = 3e-3
     batch_size: int = 16
@@ -139,8 +146,8 @@ class Trainer(Generic[StateT, ActionT, Step, Batch]):
         Note:
             This method takes no arguments and returns nothing, and its
             only used for side effects. We don't really need it other than
-            its helpful for delaying the training process until we are ready
-            to run it for other initialization.
+            it's helpful for allowing the user to contro when training
+            actually starts (instead of immediately after Trainer construction).
         """
         for _ in range(self.config.training_steps):
             buf = self.harness.experience()
