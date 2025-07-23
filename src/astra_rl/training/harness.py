@@ -1,15 +1,12 @@
 from typing import Generic, Sequence, Optional, Dict, Any, Iterator
-import os
 
 import torch
 from torch.utils.data import Dataset, DataLoader
 
-import wandb
-
 from astra_rl.core.environment import Environment
 from astra_rl.core.algorithm import Algorithm
 from astra_rl.core.common import ActionT, StateT, Batch, Step
-from astra_rl.logging import logger
+from astra_rl.logging import logger, ASTRAWandbLogger
 
 
 class ListDataset(Dataset[Step], Generic[Step]):
@@ -110,8 +107,8 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         self.wandb_kwargs = wandb_kwargs or {}
         self.dataloader_kwargs: Dict[str, Any] = dataloader_kwargs or {}
 
-        # Wandb initialization and error handling; checking that WANDB_API_KEY is set
-        self.wandb = self.init_wandb()
+        if self.use_wandb:
+            self.wandb = ASTRAWandbLogger(self.wandb_kwargs)
 
     def step(self, batch: Batch) -> tuple[torch.Tensor, Dict[Any, Any]]:
         """Run a step of the algorithm on the dataset.
@@ -120,9 +117,9 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
             dataset (ListDataset): The dataset to run the algorithm on.
 
         Returns:
-            tuple[torch.Tensor, dict[Any, Any]]: A tuple containing:
+            tuple[torch.Tensor, Dict[Any, Any]]: A tuple containing:
                 - torch.Tensor: The loss computed by the algorithm (for current batch).
-                - dict[Any, Any]: Additional information for logging.
+                - Dict[Any, Any]: Additional information for logging.
         """
 
         result: torch.Tensor
@@ -171,27 +168,13 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
             )
         )
 
-    def init_wandb(self) -> Optional[Any]:
-        """Initialize Weights & Biases if enabled; checking that WANDB_API_KEY is set
-
-        Returns:
-            Optional[wandb.Run]: The wandb run object if initialized, otherwise None.
-        """
-
-        if "WANDB_API_KEY" not in os.environ:
-            raise EnvironmentError(
-                "WANDB_API_KEY environment variable is not set. Please set it to use Weights & Biases."
-            )
-        run = wandb.init(project="astra_rl", config=self.wandb_kwargs)  # type: ignore[attr-defined]
-        return run
-
-    def log_current_step(self, current_logs: dict[Any, Any]) -> None:
+    def log_current_step(self, current_logs: Dict[Any, Any]) -> None:
         """Log the current step metrics to Weights & Biases (if enabled) and logger.
 
         Args:
-            current_logs (dict[Any, Any]): The logs to be recorded.
+            current_logs (Dict[Any, Any]): The logs to be recorded.
         """
-        if self.use_wandb and self.wandb:
+        if self.use_wandb:
             self.wandb.log(current_logs)
 
         # Always log to the logger
