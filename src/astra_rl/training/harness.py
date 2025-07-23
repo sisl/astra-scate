@@ -113,7 +113,7 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         # Wandb initialization and error handling; checking that WANDB_API_KEY is set
         self.wandb = self.init_wandb()
 
-    def step(self, batch: Batch) -> tuple[torch.Tensor, dict[Any, Any]]:
+    def step(self, batch: Batch) -> tuple[torch.Tensor, Dict[Any, Any]]:
         """Run a step of the algorithm on the dataset.
 
         Args:
@@ -126,9 +126,9 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         """
 
         result: torch.Tensor
-        logging_dict: dict[Any, Any]
+        logging_dict: Dict[Any, Any]
         result, logging_dict = self.algorithm.step(batch)
-        step_logs: dict[Any, Any] = {}
+        step_logs: Dict[Any, Any] = {}
 
         # TODO: Add other values here to logs besides algorithm specifics? Alternatively, can just return logging_dict
         step_logs = {

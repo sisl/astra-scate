@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Generic, Sequence, List, Any
+from typing import Generic, Sequence, List, Any, Dict
 
 from astra_rl.core.algorithm import Algorithm
 from astra_rl.core.problem import Problem
@@ -82,7 +82,7 @@ class DPO(
 
     def step(
         self, batch: DPOBatch[StateT, ActionT]
-    ) -> tuple[torch.Tensor, dict[Any, Any]]:
+    ) -> tuple[torch.Tensor, Dict[Any, Any]]:
         attacker_logprobs_win = self.problem._get_attacker_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
         )
@@ -111,7 +111,7 @@ class DPO(
         reward_accuracies = (chosen_rewards > rejected_rewards).float()
         reward_margin = chosen_rewards - rejected_rewards
 
-        logging_dict: dict[Any, Any] = {
+        logging_dict: Dict[Any, Any] = {
             "training/loss": loss.mean().cpu().item(),
             "reward/chosen_rewards": chosen_rewards.mean().cpu().item(),
             "reward/rejected_rewards": rejected_rewards.mean().cpu().item(),
@@ -140,7 +140,7 @@ class DPO(
 class IPO(DPO[StateT, ActionT]):
     def step(
         self, batch: DPOBatch[StateT, ActionT]
-    ) -> tuple[torch.Tensor, dict[Any, Any]]:
+    ) -> tuple[torch.Tensor, Dict[Any, Any]]:
         attacker_logprobs_win = self.problem._get_attacker_logprobs_and_validate(
             batch.prefixes, batch.suffix_pos
         )
@@ -169,7 +169,7 @@ class IPO(DPO[StateT, ActionT]):
         reward_accuracies = (chosen_rewards > rejected_rewards).float()
         reward_margin = chosen_rewards - rejected_rewards
 
-        logging_dict: dict[Any, Any] = {
+        logging_dict: Dict[Any, Any] = {
             "training/loss": loss.mean().cpu().item(),
             "reward/chosen_rewards": chosen_rewards.mean().cpu().item(),
             "reward/rejected_rewards": rejected_rewards.mean().cpu().item(),
