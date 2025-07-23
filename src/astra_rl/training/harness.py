@@ -6,7 +6,7 @@ from torch.utils.data import Dataset, DataLoader
 from astra_rl.core.environment import Environment
 from astra_rl.core.algorithm import Algorithm
 from astra_rl.core.common import ActionT, StateT, Batch, Step
-from astra_rl.logging import logger
+from astra_rl.logging import logger, ASTRAWandbLogger
 
 
 class ListDataset(Dataset[Step], Generic[Step]):
@@ -87,33 +87,52 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         environment: Environment[StateT, ActionT],
         algorithm: Algorithm[StateT, ActionT, Step, Batch],
         num_episodes_per_experience: int = 32,
-        **kwargs: Any,
+        use_wandb: bool = True,
+        wandb_kwargs: Optional[Dict[str, Any]] = None,
+        dataloader_kwargs: Optional[Dict[str, Any]] = None,
     ) -> None:
         """
         Args:
             environment (Environment): The environment to run the algorithm in.
             algorithm (Algorithm): The algorithm to run.
             rollouts_per_eps (int, optional): Number of episodes per call to `.experience()`. Defaults to 32.
-            **kwargs: keyword arguments for the PyTorch data loader constructed on the fly
+            wandb_kwargs (Optional[Dict[str, Any]], optional): Keyword arguments for configuring Weights & Biases. Defaults to None.
+            dataloader_kwargs (Optional[Dict[str, Any]], optional): Keyword arguments for the PyTorch DataLoader, such as batch size and shuffle. Defaults to None.
         """
 
         self.environment = environment
         self.algorithm = algorithm
         self.num_episodes_per_experience = num_episodes_per_experience
-        self.dataloader_kwargs: Dict[str, Any] = kwargs
+        self.use_wandb = use_wandb
+        self.wandb_kwargs = wandb_kwargs or {}
+        self.dataloader_kwargs: Dict[str, Any] = dataloader_kwargs or {}
 
-    def step(self, batch: Batch) -> torch.Tensor:
+        if self.use_wandb:
+            self.wandb = ASTRAWandbLogger(self.wandb_kwargs)
+
+    def step(self, batch: Batch) -> tuple[torch.Tensor, Dict[Any, Any]]:
         """Run a step of the algorithm on the dataset.
 
         Args:
             dataset (ListDataset): The dataset to run the algorithm on.
 
         Returns:
-            torch.Tensor: The loss computed by the algorithm.
+            tuple[torch.Tensor, Dict[Any, Any]]: A tuple containing:
+                - torch.Tensor: The loss computed by the algorithm (for current batch).
+                - Dict[Any, Any]: Additional information for logging.
         """
 
-        result: torch.Tensor = self.algorithm.step(batch)
-        return result
+        result: torch.Tensor
+        logging_dict: Dict[Any, Any]
+        result, logging_dict = self.algorithm.step(batch)
+        step_logs: Dict[Any, Any] = {}
+
+        # TODO: Add other values here to logs besides algorithm specifics? Alternatively, can just return logging_dict
+        step_logs = {
+            **logging_dict,
+        }
+
+        return result, step_logs
 
     def experience(self, seed: Optional[int] = None) -> Iterator[Batch]:
         """Collect some experiences!
@@ -148,3 +167,16 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
                 **self.dataloader_kwargs,
             )
         )
+
+    def log_current_step(self, current_logs: Dict[Any, Any]) -> None:
+        """Log the current step metrics to Weights & Biases (if enabled) and logger.
+
+        Args:
+            current_logs (Dict[Any, Any]): The logs to be recorded.
+        """
+        if self.use_wandb:
+            self.wandb.log(current_logs)
+
+        # Always log to the logger
+        # TODO: Do we want to log to the logger? Should be fine as used for debugging?
+        logger.info(f"Current logs: {current_logs}")

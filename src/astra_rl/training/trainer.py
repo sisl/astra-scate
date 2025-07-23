@@ -155,7 +155,8 @@ class Trainer(Generic[StateT, ActionT, Step, Batch]):
                 # increment counter first for occumulation
                 self._global_step_counter += 1
                 loss: torch.Tensor = (
-                    self.harness.step(batch) / self.config.gradient_accumulation_steps
+                    self.harness.step(batch)[0]
+                    / self.config.gradient_accumulation_steps
                 )
                 # typing disabled here b/c mypy can't statically verify
                 # that the loss has gradients
