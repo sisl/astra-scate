@@ -86,6 +86,5 @@ omit = [
 
 [tool.pytest.ini_options]
 markers = [
-    "gpu_required: Mark a test as requiring a GPU.",
     "slow: Mark a test as slow.",
 ]
