@@ -30,6 +30,8 @@ class DPO(
     Algorithm[StateT, ActionT, DPOStep[StateT, ActionT], DPOBatch[StateT, ActionT]],
     Generic[StateT, ActionT],
 ):
+    """Direct Preference Optimization (DPO) algorithm."""
+
     def __init__(self, problem: Problem[StateT, ActionT], beta: float = 0.1):
         super().__init__(problem)
 

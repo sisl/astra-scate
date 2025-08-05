@@ -1,6 +1,10 @@
 """
-problem.py
-Generic class of an AstraProblem
+A "Problem" is one of the core abstractions in Astra RL, defining how to interact
+with the system under test. The interface is defined by the `Problem` class, which
+defines a set of abstract methods that users must implement to create a custom problem.
+This provides flexibility in terms of how users can define their own applications
+while still adhering to a common interface that enables the Astra RL framework
+to function correctly.
 """
 
 from abc import ABC, abstractmethod
