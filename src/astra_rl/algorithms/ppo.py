@@ -27,7 +27,6 @@ class PPOBatch(Generic[StateT, ActionT]):
 
 class PPO(
     Algorithm[StateT, ActionT, PPOStep[StateT, ActionT], PPOBatch[StateT, ActionT]],
-    Generic[StateT, ActionT],
     ABC,
 ):
     """Proximal Policy Optimization (PPO) algorithm with value function."""
