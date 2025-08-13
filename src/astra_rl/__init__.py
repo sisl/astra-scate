@@ -1,3 +1,4 @@
+from .core.problem import Problem, ValueFunctionProblem
 from .methods import ASTEnvironment, ASTNode, ASTProblem
 from .algorithms import DPO, IPO, DPOBatch, DPOStep
 from .moderators import DetoxifyModerator
@@ -15,4 +16,6 @@ __all__ = (
     "Harness",
     "Trainer",
     "TrainingConfiguration",
+    "Problem",
+    "ValueFunctionProblem",
 )
