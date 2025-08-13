@@ -89,12 +89,16 @@ class PPO(
             torch.tensor(batch.reward)
             .to(logprobs_attacker.device)
             .unsqueeze(-1)
+            .unsqueeze(-1)
             .repeat(1, *values.shape[1:])
         )
         A = Q - values
 
         # normalize advantages
-        A = (A - A.mean()) / (A.std() + 1e-8)
+        if A.size(-1) == 1:
+            A = ((A - A.mean()) / (A.std() + 1e-8)).squeeze(-1)
+        else:
+            A = (A - A.mean()) / (A.std() + 1e-8)
         # compute ratio, should be 1 at the first iteration
         ratio = torch.exp((logprobs_attacker - logprobs_baseline.detach()))
 
