@@ -253,3 +253,40 @@ class Problem(ABC, Generic[StateT, ActionT]):
         rolled_out = self.rollout_prompt_with_target(x)
         self._check_continuation("target_rollout", x, rolled_out)
         return rolled_out
+
+
+class ValueFunctionProblem(Problem[StateT, ActionT], Generic[StateT, ActionT], ABC):
+    """Extends `Problem` to be able to return sequence values with a value head.
+
+    Note:
+        This is useful for value-laiden solution methods such as Actor
+        Critic derivatives (i.e., PPO).
+
+    Attributes:
+        moderator (Moderator[StateT, ActionT]): The moderator used to evaluate sequences.
+
+    Generics:
+        StateT (type): The type of the state in the environment.
+        ActionT (type): The type of the action in the environment.
+    """
+
+    @abstractmethod
+    def value(
+        self, context: Sequence[StateT], continuation: Sequence[ActionT]
+    ) -> torch.Tensor:
+        """Given a squence, evaluate its token-wise value using a value function.
+
+        Notes:
+           This is typically done by the same neural network you use for rollouts
+           just passing the intermediate activations through another layer.
+
+        Args:
+            elem (Sequence[StateT]): The sequence to evaluate.
+
+        Returns:
+            torch.Tensor[batch_size, max_continuation_length]: The per-token values of
+            the given squence by the sequence predictor. Do not include the value of the input
+            prefixes.
+        """
+
+        pass
