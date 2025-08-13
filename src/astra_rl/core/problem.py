@@ -286,7 +286,9 @@ class ValueFunctionProblem(Problem[StateT, ActionT], ABC):
         Returns:
             torch.Tensor[batch_size, max_continuation_length]: The per-token values of
             the given squence by the sequence predictor. Do not include the value of the input
-            prefixes.
+            prefixes. If you are predicting on the whole input, you should be slicing on
+            `[:, :-1]`, meaning you should *not* return the value of the last token, whose
+            input is eos/context length limit.
         """
 
         pass
