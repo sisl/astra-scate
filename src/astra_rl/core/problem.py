@@ -255,7 +255,7 @@ class Problem(ABC, Generic[StateT, ActionT]):
         return rolled_out
 
 
-class ValueFunctionProblem(Problem[StateT, ActionT], Generic[StateT, ActionT], ABC):
+class ValueFunctionProblem(Problem[StateT, ActionT], ABC):
     """Extends `Problem` to be able to return sequence values with a value head.
 
     Note:
