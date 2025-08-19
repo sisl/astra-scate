@@ -87,7 +87,7 @@ class Harness(Generic[StateT, ActionT, Step, Batch]):
         environment: Environment[StateT, ActionT],
         algorithm: Algorithm[StateT, ActionT, Step, Batch],
         num_episodes_per_experience: int = 32,
-        use_wandb: bool = True,
+        use_wandb: bool = False,
         wandb_kwargs: Optional[Dict[str, Any]] = None,
         dataloader_kwargs: Optional[Dict[str, Any]] = None,
     ) -> None:
