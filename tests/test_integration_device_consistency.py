@@ -134,12 +134,9 @@ def test_integration_error_prevents_cryptic_runtime_error():
     baseline_tensor = torch.randn(2, 5, device="meta")
     
     # This would be the cryptic error that users see without our fix
-    with pytest.raises(RuntimeError) as exc_info:
+    with pytest.raises(RuntimeError):
         # This operation would fail with a cryptic message
-        result = attacker_tensor - baseline_tensor
-    
-    # The RuntimeError message is not as helpful
-    runtime_error_msg = str(exc_info.value)
+        _ = attacker_tensor - baseline_tensor
     
     # Now test that our validation provides a much better error message
     context = ["hello", "world"]

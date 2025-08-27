@@ -154,8 +154,6 @@ def test_device_consistency_with_disable_asserts():
 def test_error_message_quality():
     """Test that error messages provide helpful information."""
     problem = MockProblem(device1="cpu", device2="cpu")
-    context = ["hello"]
-    continuation = ["test"]
     
     # Set up a scenario that will trigger the error
     problem._expected_device = torch.device("meta")  # Use meta device as "expected"
