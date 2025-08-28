@@ -9,7 +9,7 @@ to function correctly.
 
 from abc import ABC, abstractmethod
 from collections import defaultdict
-from typing import Sequence, Dict, Generic, Union, Iterator
+from typing import Sequence, Dict, Generic, Union, Iterator, Optional
 
 import torch
 
@@ -41,6 +41,8 @@ class Problem(ABC, Generic[StateT, ActionT]):
     def __init__(self, moderator: Moderator[StateT, ActionT]) -> None:
         # we check all asserts once, and then disable them
         self._disable_asserts: Dict[str, bool] = defaultdict(bool)
+        # track the device of the first logprobs tensor to ensure consistency
+        self._expected_device: Optional[torch.device] = None
         self.moderator = moderator
 
     @abstractmethod
@@ -211,6 +213,18 @@ class Problem(ABC, Generic[StateT, ActionT]):
         assert logprobs.size(0) == ctx_length, (
             "Logprobs must have the same batch size as the context."
         )
+        # check device consistency across all logprobs
+        if self._expected_device is None:
+            # This is the first logprobs tensor we've seen, set the expected device
+            self._expected_device = logprobs.device
+        else:
+            # Validate that this tensor is on the same device as previous ones
+            assert logprobs.device == self._expected_device, (
+                f"All logprobs must be on the same device. Expected {self._expected_device}, "
+                f"but {check_key} logprobs are on {logprobs.device}. "
+                f"This typically happens when models are on different devices. "
+                f"Please ensure all models (attacker, target, baseline) are on the same device."
+            )
         # warn if everything is between 0 and 1
         if ((logprobs >= 0.0) & (logprobs <= 1.0)).all():
             logger.warning(
