@@ -190,3 +190,8 @@ cython_debug/
 # Weights & Biases
 wandb/
 wandb-debug.log
+
+#Kiana added
+memory_code.md
+mvp.md
+test-run.md

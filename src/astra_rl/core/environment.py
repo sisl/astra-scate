@@ -5,7 +5,7 @@ Roll out a problem, and specify how its environment behaves.
 
 from abc import abstractmethod, ABC
 from dataclasses import dataclass
-from typing import Sequence, Generic, Self, Optional
+from typing import Sequence, Generic, Optional
 
 from astra_rl.core.common import StateT, ActionT
 from astra_rl.core.problem import Problem
@@ -36,7 +36,7 @@ class Node(Generic[StateT, ActionT]):
     response: StateT
     reward: float
 
-    children: Sequence[Self]
+    children: Sequence["Node[StateT, ActionT]"]
 
 
 @dataclass
