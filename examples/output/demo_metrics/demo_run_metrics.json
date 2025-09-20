@@ -1,0 +1,408 @@
+{
+  "episode": [
+    {
+      "timestamp": 1758329413.483046,
+      "data": {
+        "reward": 0.32517256271052486,
+        "success": false,
+        "corruption_score": 0.9117511959513473,
+        "injection_success": false,
+        "persistence_score": 0.8331446929480795,
+        "episode_time": 5.359507063210875,
+        "timestamp": 1758329413.4830434,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830666,
+      "data": {
+        "reward": -0.9728003718072047,
+        "success": false,
+        "corruption_score": 0.7816246816483703,
+        "injection_success": false,
+        "persistence_score": 0.748131466705335,
+        "episode_time": 3.7453618129196196,
+        "timestamp": 1758329413.4830663,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830701,
+      "data": {
+        "reward": 0.25396641705858336,
+        "success": true,
+        "corruption_score": 0.8494925503735724,
+        "injection_success": false,
+        "persistence_score": 0.2203659752992554,
+        "episode_time": 8.351493987711136,
+        "timestamp": 1758329413.48307,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830759,
+      "data": {
+        "reward": -0.9251085202836518,
+        "success": false,
+        "corruption_score": 0.6258127403028846,
+        "injection_success": true,
+        "persistence_score": 0.86654130439785,
+        "episode_time": 8.397374308225364,
+        "timestamp": 1758329413.4830756,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.483079,
+      "data": {
+        "reward": -0.5722373702617196,
+        "success": false,
+        "corruption_score": 0.6590811642879358,
+        "injection_success": false,
+        "persistence_score": 0.3954815074706116,
+        "episode_time": 0.6819677148059811,
+        "timestamp": 1758329413.4830787,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.483084,
+      "data": {
+        "reward": -0.5166067908563636,
+        "success": false,
+        "corruption_score": 0.27766899714776616,
+        "injection_success": false,
+        "persistence_score": 0.5281323774751081,
+        "episode_time": 8.378697283765803,
+        "timestamp": 1758329413.4830837,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830894,
+      "data": {
+        "reward": 0.45110190934192396,
+        "success": false,
+        "corruption_score": 0.8942272390381456,
+        "injection_success": true,
+        "persistence_score": 0.7051074816860508,
+        "episode_time": 9.772204285274169,
+        "timestamp": 1758329413.4830894,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830954,
+      "data": {
+        "reward": 0.2466117693546035,
+        "success": true,
+        "corruption_score": 0.6300694750999114,
+        "injection_success": true,
+        "persistence_score": 0.11591050163252092,
+        "episode_time": 2.2287158583801805,
+        "timestamp": 1758329413.483095,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830983,
+      "data": {
+        "reward": 0.6079820990130367,
+        "success": true,
+        "corruption_score": 0.9583618447765206,
+        "injection_success": false,
+        "persistence_score": 0.37669059100925395,
+        "episode_time": 7.601684641576969,
+        "timestamp": 1758329413.483098,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831035,
+      "data": {
+        "reward": 0.3283753731592822,
+        "success": false,
+        "corruption_score": 0.8715298977717735,
+        "injection_success": true,
+        "persistence_score": 0.2889418778425361,
+        "episode_time": 1.9204556560725872,
+        "timestamp": 1758329413.4831033,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831064,
+      "data": {
+        "reward": -0.9821728069818842,
+        "success": true,
+        "corruption_score": 0.8640213042660211,
+        "injection_success": false,
+        "persistence_score": 0.5994624491390801,
+        "episode_time": 0.07991080592322453,
+        "timestamp": 1758329413.4831064,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831138,
+      "data": {
+        "reward": -0.7566883405090981,
+        "success": false,
+        "corruption_score": 0.13085437589722748,
+        "injection_success": false,
+        "persistence_score": 0.42858754325606985,
+        "episode_time": 2.649286359562847,
+        "timestamp": 1758329413.4831135,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831169,
+      "data": {
+        "reward": -0.21769760284810036,
+        "success": false,
+        "corruption_score": 0.804646011517988,
+        "injection_success": false,
+        "persistence_score": 0.6466662642241036,
+        "episode_time": 7.941113460308591,
+        "timestamp": 1758329413.4831166,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831219,
+      "data": {
+        "reward": -0.20332707576844644,
+        "success": false,
+        "corruption_score": 0.6725121324831661,
+        "injection_success": false,
+        "persistence_score": 0.12264667263642015,
+        "episode_time": 2.7602184625084147,
+        "timestamp": 1758329413.4831216,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831247,
+      "data": {
+        "reward": 0.7218247089822136,
+        "success": false,
+        "corruption_score": 0.9595155979076189,
+        "injection_success": false,
+        "persistence_score": 0.9789980052373884,
+        "episode_time": 2.1161894063952893,
+        "timestamp": 1758329413.4831245,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831305,
+      "data": {
+        "reward": 0.07363456179148864,
+        "success": true,
+        "corruption_score": 0.9905497015167141,
+        "injection_success": true,
+        "persistence_score": 0.15507335831252855,
+        "episode_time": 1.9473853221157567,
+        "timestamp": 1758329413.4831302,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831357,
+      "data": {
+        "reward": 0.5012050089442288,
+        "success": false,
+        "corruption_score": 0.28819343894915594,
+        "injection_success": true,
+        "persistence_score": 0.15327394959173635,
+        "episode_time": 1.6899124280145272,
+        "timestamp": 1758329413.4831355,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831407,
+      "data": {
+        "reward": -0.026856580443042066,
+        "success": false,
+        "corruption_score": 0.8325570755970896,
+        "injection_success": false,
+        "persistence_score": 0.457852005827167,
+        "episode_time": 0.06996069338855215,
+        "timestamp": 1758329413.4831407,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831433,
+      "data": {
+        "reward": 0.8096198746206709,
+        "success": false,
+        "corruption_score": 0.4813280606377994,
+        "injection_success": true,
+        "persistence_score": 0.08951387913742892,
+        "episode_time": 0.5687473448993585,
+        "timestamp": 1758329413.4831433,
+        "episode_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831493,
+      "data": {
+        "reward": -0.6716800769487619,
+        "success": true,
+        "corruption_score": 0.9061166079722532,
+        "injection_success": true,
+        "persistence_score": 0.1527689109722732,
+        "episode_time": 2.7330308329417274,
+        "timestamp": 1758329413.483149,
+        "episode_id": 0
+      }
+    }
+  ],
+  "training": [
+    {
+      "timestamp": 1758329413.4830596,
+      "data": {
+        "loss": 1.871371580205672,
+        "grad_norm": 2.2426374931269333,
+        "batch_time": 4.731127560955983,
+        "timestamp": 1758329413.4830592,
+        "step_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830725,
+      "data": {
+        "loss": 1.2277836904991897,
+        "grad_norm": 4.680067235408504,
+        "batch_time": 1.3784354732077038,
+        "timestamp": 1758329413.4830723,
+        "step_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830809,
+      "data": {
+        "loss": 0.9119082218351495,
+        "grad_norm": 3.7165949451742977,
+        "batch_time": 2.859580015254889,
+        "timestamp": 1758329413.4830806,
+        "step_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830923,
+      "data": {
+        "loss": 1.7452087725799852,
+        "grad_norm": 1.6558286762267422,
+        "batch_time": 3.8311309585664377,
+        "timestamp": 1758329413.483092,
+        "step_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831007,
+      "data": {
+        "loss": 0.9532626954965673,
+        "grad_norm": 1.771570065887762,
+        "batch_time": 1.1092671764065982,
+        "timestamp": 1758329413.4831004,
+        "step_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831085,
+      "data": {
+        "loss": 1.0000139445756209,
+        "grad_norm": 1.2794181841099013,
+        "batch_time": 0.38749715822288977,
+        "timestamp": 1758329413.4831083,
+        "step_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.483119,
+      "data": {
+        "loss": 0.07365163115738937,
+        "grad_norm": 3.1167222039640934,
+        "batch_time": 3.0574443200067725,
+        "timestamp": 1758329413.4831188,
+        "step_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.483127,
+      "data": {
+        "loss": 0.0196962204712674,
+        "grad_norm": 2.5123299887463455,
+        "batch_time": 0.18998348853032143,
+        "timestamp": 1758329413.4831269,
+        "step_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831378,
+      "data": {
+        "loss": 0.047234380462383596,
+        "grad_norm": 0.5752281102514384,
+        "batch_time": 2.718707586648641,
+        "timestamp": 1758329413.4831376,
+        "step_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.483146,
+      "data": {
+        "loss": 1.088989907566985,
+        "grad_norm": 3.4515538156933703,
+        "batch_time": 0.06785351352211255,
+        "timestamp": 1758329413.4831457,
+        "step_id": 0
+      }
+    }
+  ],
+  "evaluation": [
+    {
+      "timestamp": 1758329413.483063,
+      "data": {
+        "success_rate": 0.48963047231726553,
+        "corruption_score": 0.5069154827768386,
+        "eval_time": 11.872835094774336,
+        "timestamp": 1758329413.4830627,
+        "eval_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4830866,
+      "data": {
+        "success_rate": 0.7059532966595111,
+        "corruption_score": 0.786640900403632,
+        "eval_time": 17.616238272261853,
+        "timestamp": 1758329413.4830863,
+        "eval_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831107,
+      "data": {
+        "success_rate": 0.672258227811897,
+        "corruption_score": 0.978457024221696,
+        "eval_time": 18.029616039353247,
+        "timestamp": 1758329413.4831104,
+        "eval_id": 0
+      }
+    },
+    {
+      "timestamp": 1758329413.4831326,
+      "data": {
+        "success_rate": 0.14435416479699859,
+        "corruption_score": 0.4081886510029187,
+        "eval_time": 26.10227559606911,
+        "timestamp": 1758329413.4831326,
+        "eval_id": 0
+      }
+    }
+  ]
+}

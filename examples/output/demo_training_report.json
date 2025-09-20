@@ -1,0 +1,28 @@
+{
+  "run_name": "demo_run",
+  "timestamp": "2025-09-19T17:50:16.816698",
+  "summary": {
+    "final_loss": 1.2629450169689997,
+    "min_loss": 1.1591131056174002,
+    "loss_improvement": 0.9140516347023158,
+    "final_success_rate": 0.4538636905750481,
+    "max_success_rate": 0.4633045542388958,
+    "final_reward": 0.5974826864136464,
+    "avg_reward": 0.3242911234077331
+  },
+  "metrics": {
+    "Eval/success_rate": {
+      "final": 0.5596416211533689,
+      "max": 0.5596416211533689,
+      "min": 0.15822599361936818,
+      "mean": 0.376726239651746
+    },
+    "Eval/avg_corruption_score": {
+      "final": 0.4052223007971877,
+      "max": 0.4052223007971877,
+      "min": 0.10810478678823875,
+      "mean": 0.26248524601948675
+    }
+  },
+  "recommendations": []
+}

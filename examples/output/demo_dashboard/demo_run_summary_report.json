@@ -1,0 +1,29 @@
+{
+  "run_name": "demo_run",
+  "timestamp": "2025-09-19T17:50:21.702118",
+  "summary": {
+    "episodes": {
+      "total": 50,
+      "avg_reward": -0.02581877604548061,
+      "std_reward": 0.4809040004072849,
+      "success_rate": 0.32,
+      "best_reward": 0.983278775411282,
+      "worst_reward": -0.8827799241189487
+    },
+    "training": {
+      "total_steps": 25,
+      "avg_loss": 1.3734472994003235,
+      "std_loss": 0.3691078686553479,
+      "min_loss": 0.7332549472052124,
+      "max_loss": 1.9793775037173686
+    },
+    "evaluation": {
+      "total_evals": 5,
+      "avg_success_rate": 0.4019804889931519,
+      "avg_corruption_score": 0.26320879358587224,
+      "best_success_rate": 0.5834211302195604,
+      "latest_success_rate": 0.5834211302195604
+    }
+  },
+  "recommendations": []
+}

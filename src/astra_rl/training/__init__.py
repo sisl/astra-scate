@@ -7,6 +7,11 @@ from .train_memory_attack import (
     create_memory_attack_trainer,
     run_memory_attack_training,
 )
+from .ipo_memory_trainer import (
+    MemoryIPOTrainer,
+    MemoryPreferencePair,
+    MemoryRollout,
+)
 
 
 __all__ = (
@@ -18,4 +23,7 @@ __all__ = (
     "AttackEpisode",
     "create_memory_attack_trainer",
     "run_memory_attack_training",
+    "MemoryIPOTrainer",
+    "MemoryPreferencePair",
+    "MemoryRollout",
 )
